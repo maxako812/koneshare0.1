@@ -14,7 +14,7 @@ export const Top = () => {
     return (
 
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Label>依頼タイトル<Input placeholder="○○をしている方にインタビューさせてください" ref={register}/></Label>
+            <Label>依頼タイトル<Input placeholder="○○をしている方にインタビューさせてください" ref={register} /></Label>
             <br />
             <br />
             <Label>こんな人を探しています
