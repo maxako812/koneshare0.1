@@ -1,14 +1,8 @@
 import "./App.css";
-import { Top } from "./components/pages/Top";
+import { Router } from "./router/Router";
 
 function App() {
-  return (
-    <div className="App">
-      <div>start</div>
-
-      <Top />
-    </div>
-  );
+  return <Router />;
 }
 
 export default App;

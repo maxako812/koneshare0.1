@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const TextArea = (props) => {
 
-    const { placeholder = "" } = props;
-    return <STextArea type="text" placeholder={placeholder} />
+    const { placeholder = "", value, onChange, ref } = props;
+    return <STextArea type="text" placeholder={placeholder} value={value} onChange={onChange} ref={ref} />
 
 }
 
