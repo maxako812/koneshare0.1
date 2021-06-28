@@ -4,14 +4,15 @@ import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { Card } from "../atoms/card/Card";
 
 export const InquiryCard = (props) => {
-    const { inquiry } = props;
+    const { inquiry, inquiryId } = props;
     const history = useHistory();
+
+    //回答するボタンを押すと回答ページに遷移する
     const onClickAnswer = () => {
+        history.push({ pathname: "/answer", state: { inquiryId: inquiryId } });
+        console.log(inquiryId);
+    };
 
-
-        history.push("/answer");
-
-    }
     return (
         <Card>
             <SDl>
@@ -33,6 +34,9 @@ export const InquiryCard = (props) => {
                 <dd>{inquiry.mail}</dd>
                 <dt>部署名</dt>
                 <dd>{inquiry.department}</dd>
+                <dt>投稿日時</dt>
+                <dd>{new Date(inquiry.timestamp?.toDate()).toLocaleString()}</dd>
+
             </SDl>
             <PrimaryButton onClick={onClickAnswer}>回答する</PrimaryButton>
         </Card>

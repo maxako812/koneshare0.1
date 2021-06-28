@@ -10,8 +10,10 @@ import firebase from "firebase/app"
 
 export const Top = () => {
 
+    //バリデーションを実装するためにreact-hook-formを使ってみる
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
+    //useStateで各入力値を保持する
     const [title, setTitle] = useState("");
     const [features, setFeatures] = useState("");
     const [inquiry, setInquiry] = useState("");
@@ -70,6 +72,8 @@ export const Top = () => {
             department: department,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
+
+        
     }
 
     return (

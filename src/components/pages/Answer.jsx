@@ -6,11 +6,14 @@ import firebase from "firebase/app"
 import { useState } from "react"
 import { TextArea } from "../atoms/input/TextArea"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
+import { useLocation } from "react-router-dom"
 
 export const Answer = (props) => {
 
     //相談IDをpropsで受け取る
     const { inquiryId } = props;
+    const { state } = useLocation();
+    console.log(state);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const [name, setName] = useState("");
@@ -29,12 +32,11 @@ export const Answer = (props) => {
     })
 
 
+    //回答内容の登録処理
     const onSubmit = (e) => {
-        //　★ここの意味がよくわからなん
+        // formタグを使う時,送信のtype=submitを使うとページがリロードされるので、リロードの処理を無効にしましょう🤗
         // e.preventDefault();
 
-        // formタグを使う時,送信のtype=submitを使うとページがリロードされるので、リロードの処理を無効にしましょう🤗
-        e.preventDefault();
         // firebaseのdbにアクセスをしてデータを登録します
         // doc()これがポイント！
         db.collection("inquiry").doc(inquiryId).collection("answer").add({

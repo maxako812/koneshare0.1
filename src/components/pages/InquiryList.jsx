@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase"
 import { InquiryCard } from "../organisms/InquiryCard";
-import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const InquiryList = () => {
 
@@ -18,6 +17,7 @@ export const InquiryList = () => {
             name: "",
             mail: "",
             department: "",
+            timestamp: null,
         },
     ]);
 
@@ -39,6 +39,7 @@ export const InquiryList = () => {
                         name: doc.data().name,
                         mail: doc.data().mail,
                         department: doc.data().department,
+                        timestamp: doc.data().timestamp,
                     }))
                 ));
 
@@ -46,6 +47,8 @@ export const InquiryList = () => {
             firebaseData();
         };
     }, [])
+    console.log(inquiries, "firebaseの中身");
+
 
     return (
         <SContainer>
@@ -55,7 +58,11 @@ export const InquiryList = () => {
             <hr />
             <SInquiryArea>
                 {inquiries.map((inquiry) => (
-                    <InquiryCard key={inquiries.id} inquiry={inquiry} />
+                    <InquiryCard
+                        inquiryId = {inquiries.id}
+                        key={inquiries.id}
+                        // ここがなぜ{inquiry}で{inquiries}じゃないのか考えてみる。
+                        inquiry={inquiry} />
                 ))}
 
             </SInquiryArea>
