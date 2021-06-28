@@ -8,12 +8,10 @@ import { TextArea } from "../atoms/input/TextArea"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
 import { useLocation } from "react-router-dom"
 
-export const Answer = (props) => {
+export const Answer = () => {
 
-    //相談IDをpropsで受け取る
-    const { inquiryId } = props;
+    //相談IDをstateで受け取る。
     const { state } = useLocation();
-    console.log(state);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const [name, setName] = useState("");
@@ -23,6 +21,7 @@ export const Answer = (props) => {
     const onChangeName = ((e) => {
         setName(e.target.value)
     })
+    
 
     const onChangeMail = ((e) => {
         setMail(e.target.value)
@@ -38,15 +37,16 @@ export const Answer = (props) => {
         // e.preventDefault();
 
         // firebaseのdbにアクセスをしてデータを登録します
-        // doc()これがポイント！
-        db.collection("inquiry").doc(inquiryId).collection("answer").add({
+        // state.inquiryIdに紐づいた先に回答を紐付ける
+        db.collection("inquiry").doc(state.inquiryId).collection("answer").add({
             name: name,
             mail: mail,
             answer: answer,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
-        // 送信のボタンが押されたら入力欄を空にしたいのでsetComment("")を使う
+        // 送信のボタンが押されたら入力欄を空にしたい
         setAnswer("");
+        alert("送信完了しました")
     }
 
     return (

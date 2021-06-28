@@ -63,6 +63,7 @@ export const InquiryList = () => {
                         key={inquiries.id}
                         // ここがなぜ{inquiry}で{inquiries}じゃないのか考えてみる。
                         inquiry={inquiry} />
+                        
                 ))}
 
             </SInquiryArea>
