@@ -3,8 +3,8 @@ import styled from "styled-components"
 export const Header = () => {
     return (
         <SHeader>
-            <SLink to="/">公募する</SLink>
-            <SLink to="/inquirylist">回答する</SLink>
+            <SLink to="/">相談する</SLink>
+            <SLink to="/inquirylist">相談一覧</SLink>
         </SHeader>
     )
 }

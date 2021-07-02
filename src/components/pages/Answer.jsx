@@ -21,7 +21,6 @@ export const Answer = () => {
     const onChangeName = ((e) => {
         setName(e.target.value)
     })
-    
 
     const onChangeMail = ((e) => {
         setMail(e.target.value)
