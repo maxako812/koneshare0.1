@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { db } from "../../firebase"
 import { InquiryCard } from "../organisms/InquiryCard";
+import { UserContext } from "../../providers/UserProvider";
 
 export const InquiryList = () => {
 
@@ -47,7 +48,10 @@ export const InquiryList = () => {
             firebaseData();
         };
     }, [])
-    console.log(inquiries, "firebaseの中身");
+
+    const context = useContext(UserContext);
+    console.log(context);
+    // console.log(inquiries, "firebaseの中身");
 
 
     return (

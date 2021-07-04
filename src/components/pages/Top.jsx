@@ -14,7 +14,7 @@ export const Top = () => {
     //バリデーションを実装するためにreact-hook-formを使ってみる
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
- 
+
     const onSubmit = (data) => {
 
         //データの型をStringに変換
@@ -33,8 +33,6 @@ export const Top = () => {
         // console.log(availability);
         // console.log(typeof(availability));
         // console.log(typeof(mail));
-
-        
         const database = {
             title: title,
             features: features,
@@ -47,6 +45,7 @@ export const Top = () => {
             department: department,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }
+        //firebaseに登録処理
         db.collection("inquiry").add(database);
     }
 
