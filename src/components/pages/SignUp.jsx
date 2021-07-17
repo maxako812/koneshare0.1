@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { withRouter } from "react-router";
 import { UserContext } from "../../providers/UserProvider";
+import { Input } from "../atoms/input/Input";
+import { Label } from "../atoms/label/Label";
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 const SignUp = ({ history }) => {
   const { signup } = useContext(UserContext);
@@ -15,15 +18,18 @@ const SignUp = ({ history }) => {
     <div>
       <h1>Sign up</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        <Label>
           Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
+          <Input name="email" type="email" placeholder="Email" />
+        </Label>
+        <br/>
+        <Label>
           Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Sign Up</button>
+          <Input name="password" type="password" placeholder="Password" />
+        </Label>
+        <br/>
+        <br/>
+        <PrimaryButton type="submit">Sign Up</PrimaryButton>
       </form>
     </div>
   );

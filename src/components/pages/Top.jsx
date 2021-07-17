@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form"
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { Input } from "../atoms/input/Input";
@@ -7,6 +7,8 @@ import { Label } from "../atoms/label/Label";
 import { db } from "../../firebase"
 import firebase from "firebase/app"
 import { Span } from "../atoms/input/Span";
+import { UserContext } from "../../providers/UserProvider";
+import { Logout } from "../molecules/Logout";
 
 
 export const Top = () => {
@@ -14,6 +16,11 @@ export const Top = () => {
     //バリデーションを実装するためにreact-hook-formを使ってみる
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
+    //ログイン情報からメール情報を取り出す
+    const context = useContext(UserContext);
+    const userMail = context.userInfo.email;
+    // console.log(context);
+    // console.log(userMail);
 
     const onSubmit = (data) => {
 
@@ -25,7 +32,6 @@ export const Top = () => {
         const method = JSON.stringify(data.method)
         const availability = JSON.stringify(data.availability)
         const name = JSON.stringify(data.name)
-        const mail = JSON.stringify(data.mail)
         const department = JSON.stringify(data.department)
 
         // console.log(data);
@@ -41,7 +47,7 @@ export const Top = () => {
             method: method,
             availability: availability,
             name: name,
-            mail: mail,
+            mail: userMail,　//メールはログイン情報から取得したものをそのままセット
             department: department,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }
@@ -50,6 +56,7 @@ export const Top = () => {
     }
 
     return (
+
 
         <form onSubmit={handleSubmit(onSubmit)}>
             <Label>依頼タイトル
@@ -61,55 +68,45 @@ export const Top = () => {
             <Label>こんな人を探しています
                 <Input placeholder="社内でサブスクシステムの請回収システム構築の経験がある方" {...register('features', { required: true })} />
                 {errors.features && errors.features.type === "required" && <Span>※必須入力項目です</Span>}
-
-                {/* <Input placeholder="社内でサブスクシステムの請回収システム構築の経験がある方" value={features} onChange={onChangeFeatures} ref={register} /> */}
             </Label>
             <br />
             <br />
             <Label>依頼内容
                 <TextArea placeholder="○○をしている方にインタビューさせてください" {...register('inquiry')} />
-                {/* <TextArea placeholder="○○をしている方にインタビューさせてください" value={inquiry} onChange={onChangeInquiry} ref={register} /> */}
             </Label>
             <br />
             <br />
             <Label>質問したい内容
                 <TextArea placeholder="業務の流れ、ワークショップにおいて大切にしていることなど" {...register('question')} />
-                {/* <TextArea placeholder="業務の流れ、ワークショップにおいて大切にしていることなど" value={question} onChange={onChangeQuestion} ref={register} /> */}
             </Label>
             <br />
             <br />
             <Label>想定インタビュー方法
                 <Input placeholder="Teams会議を想定" {...register('method')} />
             </Label>
-
-            {/* <Input placeholder="Teams会議を想定" value={method} onChange={onChangeMethod} ref={register} /></Label> */}
             <br />
             <br />
             <Label>候補日
                <Input placeholder="2021/04/19までの間" {...register('availability')} />
-                {/* <Input placeholder="2021/04/19までの間" value={availability} onChange={onChangeAvailability} ref={register} /> */}
             </Label>
             <br />
             <br />
             <Label>依頼者名
                 <Input placeholder="おきなわたろう" {...register('name')} />
-                {/* <Input placeholder="おきなわたろう" value={name} onChange={onChangeName} ref={register} /> */}
             </Label>
             <br />
             <br />
             <Label>メールアドレス
-                <Input placeholder="test＠xxxx.com" {...register('mail')} />
-                {/* <Input placeholder="test＠xxxx.com" value={mail} onChange={onChangeMail} ref={register} /> */}
+                {/* メール情報のみログイン情報から抽出して編集不可にする */}
+                <Input value={userMail} readonly />
             </Label>
             <br />
             <br />
             <Label>部署名
                 <Input placeholder="デジタルサービス部" {...register('department')} />
-                {/* <Input placeholder="デジタルサービス部" value={department} onChange={onChangeDepartment} ref={register} /> */}
             </Label>
 
             <PrimaryButton>公募する</PrimaryButton>
-
         </form>
     )
 }

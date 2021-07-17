@@ -51,25 +51,24 @@ export const InquiryList = () => {
 
     const context = useContext(UserContext);
     console.log(context);
-    // console.log(inquiries, "firebaseの中身");
+    console.log(context.userInfo.email)
 
 
     return (
         <SContainer>
             <div>
                 公募一覧
-        </div>
+            </div>
             <hr />
             <SInquiryArea>
                 {inquiries.map((inquiry) => (
                     <InquiryCard
-                        inquiryId = {inquiries.id}
+                        inquiryId={inquiries.id}
                         key={inquiries.id}
                         // ここがなぜ{inquiry}で{inquiries}じゃないのか考えてみる。
                         inquiry={inquiry} />
-                        
-                ))}
 
+                ))}
             </SInquiryArea>
 
         </SContainer>

@@ -20,6 +20,8 @@ export const UserProvider = (props) => {
         }
     };
 
+
+    //新規登録用のメソッド
     const signup = async (email, password, history) => {
         try {
             await auth.createUserWithEmailAndPassword(email, password)
