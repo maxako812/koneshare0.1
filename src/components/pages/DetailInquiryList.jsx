@@ -6,6 +6,7 @@ import { UserContext } from "../../providers/UserProvider";
 import { useHistory, useLocation } from "react-router-dom"
 import { Card } from "../atoms/card/Card";
 import { InquiryDetailCard } from "../organisms/InquiryDetailCard";
+import { AnswerCard } from "../organisms/AnswerCard";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 
@@ -75,6 +76,7 @@ export const DetailInquiryList = () => {
                 setAnswers(
                     snapshot.docs.map((doc) => ({
                         id: doc.id,
+                        name: doc.data().name,
                         answer: doc.data().answer,
                         timestamp: doc.data().timestamp,
                     }))
@@ -98,15 +100,16 @@ export const DetailInquiryList = () => {
                     inquiry={inquiry}
                     InquiryId={inquiryId}
                 />
+
+                <PrimaryButton onClick={onClickAnswer}>回答する</PrimaryButton>
+                <br />
+                {answers &&
+                    answers.map((answer) => (
+                        <AnswerCard
+                            key={answers.id}
+                            answer={answer} />
+                    ))}
             </SInquiryArea>
-            <PrimaryButton onClick={onClickAnswer}>回答する</PrimaryButton>
-            {answers &&
-                answers.map((answer) => (
-                    <p>
-                        {answer.answer}
-                        {answer.name}
-                    </p>
-                ))}
         </SContainer>
 
     )

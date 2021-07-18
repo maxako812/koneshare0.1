@@ -17,15 +17,17 @@ export const Header = () => {
 }
 
 const SHeader = styled.header`
-    background-color: #11999e;
+    background-color: #7266a1;
     color: #fff;
     text-align: center;
-    padding : 8px 0;
+    padding : 10px 0;
 
 `
 
 const SLink = styled(Link)`
     margin: 0 8px;
+    color: white;
+    text-decoration: none;
 `
 
 const SDiv = styled.div`

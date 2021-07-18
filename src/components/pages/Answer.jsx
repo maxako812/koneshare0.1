@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { Input } from "../atoms/input/Input"
 import { Label } from "../atoms/label/Label"
 import { useForm } from "react-hook-form"
@@ -7,6 +8,9 @@ import { useState } from "react"
 import { TextArea } from "../atoms/input/TextArea"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
 import { useLocation } from "react-router-dom"
+import { UserContext } from "../../providers/UserProvider";
+import { Span } from "../atoms/input/Span";
+
 
 export const Answer = () => {
 
@@ -14,53 +18,71 @@ export const Answer = () => {
     const { state } = useLocation();
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-    const [name, setName] = useState("");
-    const [mail, setMail] = useState("");
-    const [answer, setAnswer] = useState("");
+    //ログイン情報からメール情報を取り出す
+    const context = useContext(UserContext);
+    const userMail = context.userInfo.email;
 
-    const onChangeName = ((e) => {
-        setName(e.target.value)
-    })
+    // const [name, setName] = useState("");
+    // const [mail, setMail] = useState("");
+    // const [answer, setAnswer] = useState("");
 
-    const onChangeMail = ((e) => {
-        setMail(e.target.value)
-    })
-    const onChangeAnswer = ((e) => {
-        setAnswer(e.target.value)
-    })
+    // const onChangeName = ((e) => {
+    //     setName(e.target.value)
+    // })
 
+    // const onChangeMail = ((e) => {
+    //     setMail(e.target.value)
+    // })
+    // const onChangeAnswer = ((e) => {
+    //     setAnswer(e.target.value)
+    // })
 
-    //回答内容の登録処理
-    const onSubmit = (e) => {
-        // formタグを使う時,送信のtype=submitを使うとページがリロードされるので、リロードの処理を無効にしましょう🤗
-        // e.preventDefault();
+    //回答ボタン押下時の登録処理
+    const onSubmit = (data) => {
 
-        // firebaseのdbにアクセスをしてデータを登録します
-        // state.inquiryIdに紐づいた先に回答を紐付ける
-        db.collection("inquiry").doc(state.inquiryId).collection("answer").add({
+        //データの型をStringに変換
+        const name = JSON.stringify(data.name);
+        const answer = JSON.stringify(data.answer);
+
+        const database = {
             name: name,
-            mail: mail,
+            mail: userMail,
             answer: answer,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+        }
+
+        db.collection("inquiry").doc(state.inquiryId).collection("answer").add(database);
+
+        // firebaseのdbにアクセスをしてデータを登録します
+        // // state.inquiryIdに紐づいた先に回答を紐付ける
+        // db.collection("inquiry").doc(state.inquiryId).collection("answer").add({
+        //     name: name,
+        //     mail: mail,
+        //     answer: answer,
+        //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        // });
         // 送信のボタンが押されたら入力欄を空にしたい
-        setAnswer("");
+        // setAnswer("");
         alert("送信完了しました")
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Label>回答者名
-                <Input placeholder="おおさかたろう" value={name}
-                    onChange={onChangeName} ref={register} />
+                <Input placeholder="おおさかたろう" {...register('name', { required: true })} />
+                {errors.name && errors.name.type === "required" && <Span>※必須入力項目です</Span>}
+
             </Label>
             <Label>メールアドレス
-                <Input placeholder="test@test.com" value={mail}
-                    onChange={onChangeMail} ref={register} />
+                {/* <Input placeholder="test@test.com" value={mail}
+                    onChange={onChangeMail} ref={register} />                 */}
+                <Input value={userMail} readonly />
             </Label>
             <Label>回答内容
-                <TextArea placeholder="何日なら可能です。" value={answer}
-                    onChange={onChangeAnswer} ref={register} />
+                {/* <TextArea placeholder="何日なら可能です。" value={answer}
+                    onChange={onChangeAnswer} ref={register} /> */}
+                <TextArea placeholder="○○事業部にて新規事業を検討していました。何日ならTeams設定可能です" {...register('answer')} />
+                {errors.answer && errors.answer.type === "required" && <Span>※必須入力項目です</Span>}
             </Label>
             <PrimaryButton>回答する</PrimaryButton>
         </form>

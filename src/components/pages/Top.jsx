@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 import { useForm } from "react-hook-form"
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 import { Input } from "../atoms/input/Input";
@@ -19,9 +20,9 @@ export const Top = () => {
     //ログイン情報からメール情報を取り出す
     const context = useContext(UserContext);
     const userMail = context.userInfo.email;
-    // console.log(context);
-    // console.log(userMail);
 
+
+    //相談ボタン押下時の登録処理
     const onSubmit = (data) => {
 
         //データの型をStringに変換
@@ -34,11 +35,7 @@ export const Top = () => {
         const name = JSON.stringify(data.name)
         const department = JSON.stringify(data.department)
 
-        // console.log(data);
-        // console.log(typeof(data));
-        // console.log(availability);
-        // console.log(typeof(availability));
-        // console.log(typeof(mail));
+
         const database = {
             title: title,
             features: features,
@@ -57,56 +54,66 @@ export const Top = () => {
 
     return (
 
-
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <Label>依頼タイトル
+        <SDiv>
+            <br/>
+            <br/>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Label>依頼タイトル
                 <Input placeholder="○○をしている方にインタビューさせてください"  {...register('title', { required: true })} />
-                {errors.title && errors.title.type === "required" && <Span>※必須入力項目です</Span>}
-            </Label>
-            <br />
-            <br />
-            <Label>こんな人を探しています
+                    {errors.title && errors.title.type === "required" && <Span>※必須入力項目です</Span>}
+                </Label>
+                <br />
+                <br />
+                <Label>こんな人を探しています
                 <Input placeholder="社内でサブスクシステムの請回収システム構築の経験がある方" {...register('features', { required: true })} />
-                {errors.features && errors.features.type === "required" && <Span>※必須入力項目です</Span>}
-            </Label>
-            <br />
-            <br />
-            <Label>依頼内容
+                    {errors.features && errors.features.type === "required" && <Span>※必須入力項目です</Span>}
+                </Label>
+                <br />
+                <br />
+                <Label>依頼内容
                 <TextArea placeholder="○○をしている方にインタビューさせてください" {...register('inquiry')} />
-            </Label>
-            <br />
-            <br />
-            <Label>質問したい内容
+                </Label>
+                <br />
+                <br />
+                <Label>質問したい内容
                 <TextArea placeholder="業務の流れ、ワークショップにおいて大切にしていることなど" {...register('question')} />
-            </Label>
-            <br />
-            <br />
-            <Label>想定インタビュー方法
+                </Label>
+                <br />
+                <br />
+                <Label>想定インタビュー方法
                 <Input placeholder="Teams会議を想定" {...register('method')} />
-            </Label>
-            <br />
-            <br />
-            <Label>候補日
+                </Label>
+                <br />
+                <br />
+                <Label>候補日
                <Input placeholder="2021/04/19までの間" {...register('availability')} />
-            </Label>
-            <br />
-            <br />
-            <Label>依頼者名
+                </Label>
+                <br />
+                <br />
+                <Label>依頼者名
                 <Input placeholder="おきなわたろう" {...register('name')} />
-            </Label>
-            <br />
-            <br />
-            <Label>メールアドレス
+                </Label>
+                <br />
+                <br />
+                <Label>メールアドレス
                 {/* メール情報のみログイン情報から抽出して編集不可にする */}
-                <Input value={userMail} readonly />
-            </Label>
-            <br />
-            <br />
-            <Label>部署名
+                    <Input value={userMail} readonly />
+                </Label>
+                <br />
+                <br />
+                <Label>部署名
                 <Input placeholder="デジタルサービス部" {...register('department')} />
-            </Label>
+                </Label>
+<br/>
 
-            <PrimaryButton>公募する</PrimaryButton>
-        </form>
+                <PrimaryButton>相談する</PrimaryButton>
+            </form>
+        </SDiv>
     )
 }
+
+const SDiv = styled.div`
+    /* display:flex;
+    align-items: center;
+  justify-content: center */
+`

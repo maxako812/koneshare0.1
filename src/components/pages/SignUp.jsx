@@ -29,7 +29,7 @@ const SignUp = ({ history }) => {
         </Label>
         <br/>
         <br/>
-        <PrimaryButton type="submit">Sign Up</PrimaryButton>
+        <PrimaryButton type="submit">新規登録する</PrimaryButton>
       </form>
     </div>
   );
