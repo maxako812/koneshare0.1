@@ -4,7 +4,8 @@ export const Span =
     styled.span`
     display:block;
     width: 200px;
-    color: red;
+    color: #CC8855;
+    font-size: 10px;
 
     `;
 

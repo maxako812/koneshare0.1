@@ -32,7 +32,6 @@ export const AnswerCard = (props) => {
                 <dd>{new Date(answer.timestamp?.toDate()).toLocaleString()}</dd>
                 {/* <dt>ID</dt>
                 <dd>{inquiry.id}</dd> */}
-
             </SDl>
         </Card>
     )

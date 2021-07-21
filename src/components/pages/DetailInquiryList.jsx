@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../../firebase"
-import { InquiryCard } from "../organisms/InquiryCard";
-import { UserContext } from "../../providers/UserProvider";
 import { useHistory, useLocation } from "react-router-dom"
-import { Card } from "../atoms/card/Card";
 import { InquiryDetailCard } from "../organisms/InquiryDetailCard";
 import { AnswerCard } from "../organisms/AnswerCard";
 import { PrimaryButton } from "../atoms/button/PrimaryButton";

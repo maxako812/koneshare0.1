@@ -26,6 +26,7 @@ export const Top = () => {
     const onSubmit = (data) => {
 
         //データの型をStringに変換
+        /*
         const title = JSON.stringify(data.title);
         const features = JSON.stringify(data.features)
         const inquiry = JSON.stringify(data.inquiry)
@@ -34,6 +35,8 @@ export const Top = () => {
         const availability = JSON.stringify(data.availability)
         const name = JSON.stringify(data.name)
         const department = JSON.stringify(data.department)
+
+        console.log (name);
 
 
         const database = {
@@ -48,72 +51,81 @@ export const Top = () => {
             department: department,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         }
+        */
+       var database = data;
+       database.mail = userMail;
+       database.timestamp = firebase.firestore.FieldValue.serverTimestamp();
         //firebaseに登録処理
         db.collection("inquiry").add(database);
     }
 
     return (
 
-        <SDiv>
+        <SContainer>
             <br/>
             <br/>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Label>依頼タイトル
-                <Input placeholder="○○をしている方にインタビューさせてください"  {...register('title', { required: true })} />
-                    {errors.title && errors.title.type === "required" && <Span>※必須入力項目です</Span>}
-                </Label>
-                <br />
-                <br />
-                <Label>こんな人を探しています
-                <Input placeholder="社内でサブスクシステムの請回収システム構築の経験がある方" {...register('features', { required: true })} />
-                    {errors.features && errors.features.type === "required" && <Span>※必須入力項目です</Span>}
-                </Label>
-                <br />
-                <br />
-                <Label>依頼内容
-                <TextArea placeholder="○○をしている方にインタビューさせてください" {...register('inquiry')} />
-                </Label>
-                <br />
-                <br />
-                <Label>質問したい内容
-                <TextArea placeholder="業務の流れ、ワークショップにおいて大切にしていることなど" {...register('question')} />
-                </Label>
-                <br />
-                <br />
-                <Label>想定インタビュー方法
-                <Input placeholder="Teams会議を想定" {...register('method')} />
-                </Label>
-                <br />
-                <br />
-                <Label>候補日
-               <Input placeholder="2021/04/19までの間" {...register('availability')} />
-                </Label>
-                <br />
-                <br />
-                <Label>依頼者名
-                <Input placeholder="おきなわたろう" {...register('name')} />
-                </Label>
-                <br />
-                <br />
-                <Label>メールアドレス
-                {/* メール情報のみログイン情報から抽出して編集不可にする */}
-                    <Input value={userMail} readonly />
-                </Label>
-                <br />
-                <br />
-                <Label>部署名
-                <Input placeholder="デジタルサービス部" {...register('department')} />
-                </Label>
-<br/>
+                <SUl>
+                    <SLi>
+                        <Label>依頼タイトル</Label>
+                        <Input placeholder="新規サブスクシステム構築について"  {...register('title', { required: true })} />
+                        {errors.title && errors.title.type === "required" && <Span>※必須入力項目です</Span>}
+                    </SLi>
+                    <SLi>
+                        <Label>こんな人を探しています</Label>
+                        <Input placeholder="社内でサブスクシステムの請回収システム構築の経験がある方" {...register('features', { required: true })} />
+                        {errors.features && errors.features.type === "required" && <Span>※必須入力項目です</Span>}
+                    </SLi>
 
-                <PrimaryButton>相談する</PrimaryButton>
+                    <SLi>
+                        <Label>相談したい内容</Label>
+                        <TextArea placeholder="現在マーケティング部にて新規サブスクシステムの事業検討をしています。構築手順や業務フローなどを相談させてください。" {...register('inquiry')} />
+                    </SLi>
+                    {/* <SLi>
+                        <Label>質問したい内容</Label>
+                        <TextArea placeholder="業務の流れ、ワークショップにおいて大切にしていることなど" {...register('question')} />
+                    </SLi> */}
+                    <SLi>
+                        <Label>希望回答方法</Label>
+                        <Input placeholder="Teams会議で30分程度お時間をください" {...register('method')} />
+                    </SLi>
+                    <SLi>
+                        <Label>候補日</Label>
+                        <Input placeholder="2021/04/19までの間" {...register('availability')} />
+                    </SLi>
+                    <SLi>
+                        <Label>依頼者名</Label>
+                        <Input placeholder="おきなわたろう" {...register('name')} />
+                    </SLi>
+                    <SLi>
+                        <Label>メールアドレス</Label>
+                        {/* メール情報のみログイン情報から抽出して編集不可にする */}
+                        <Input value={userMail} readonly />
+                    </SLi>
+                    <SLi>
+                        <Label>部署名</Label>
+                        <Input placeholder="マーケティング部" {...register('department')} />
+                    </SLi>
+                    <SLi>
+                        <PrimaryButton>相談する</PrimaryButton>
+                    </SLi>
+                </SUl>
             </form>
-        </SDiv>
+        </SContainer>
     )
 }
 
-const SDiv = styled.div`
-    /* display:flex;
-    align-items: center;
-  justify-content: center */
+const SContainer = styled.div`
+   text-align:center;
+   margin:0 auto;
+
+`
+
+const SLi = styled.li`
+    list-style: none;
+    margin-bottom: 40px;
+`
+const SUl = styled.ul`
+    width: 500px;
+    margin: 0 auto;
 `

@@ -57,7 +57,7 @@ export const InquiryList = () => {
     return (
         <SContainer>
             <div>
-                公募一覧
+                相談一覧
             </div>
             <hr />
             <SInquiryArea>

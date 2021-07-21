@@ -10,15 +10,17 @@ import { PrivateRoute } from "./PrivateRoute"
 import SignUp from "../components/pages/SignUp"
 import { CheckAnswer } from "../components/molecules/CheckAnswer"
 import { DetailInquiryList } from "../components/pages/DetailInquiryList"
+import {Landing} from "../components/pages/Landing"
 
 
 export const Router = () => {
     return (
         <BrowserRouter>
             <Switch>
+                <Route exact path= "/" component={Landing}/>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={SignUp} />
-                <PrivateRoute exact path="/">
+                <PrivateRoute exact path="/top">
                     <HeaderOnly>
                         <Top />
                     </HeaderOnly>

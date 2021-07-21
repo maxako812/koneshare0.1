@@ -13,4 +13,10 @@ const SInput = styled.input`
     border-radius: 200px;
     width:500px;
     outline: none;
+    &:invalid{
+        border: solid #FADBDA 1px;
+    }
+    &:focus{
+        background-color:#ddd
+    }
 `

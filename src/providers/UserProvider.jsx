@@ -13,7 +13,7 @@ export const UserProvider = (props) => {
     const login = async (email, password, history) => {
         try {
             await auth.signInWithEmailAndPassword(email, password);
-            history.push("/");
+            history.push("/top");
 
         } catch (error) {
             alert(error);
@@ -25,7 +25,7 @@ export const UserProvider = (props) => {
     const signup = async (email, password, history) => {
         try {
             await auth.createUserWithEmailAndPassword(email, password)
-            history.push("/")
+            history.push("/top")
         } catch (error) {
             alert(error);
         }
